@@ -33,7 +33,8 @@ Our most advanced workflows leveraging cutting-edge AI capabilities:
 
 Comprehensive workflows for marketing campaigns and sales processes:
 
-- **[Email Campaign Automation](./workflows/10078-automated-cold-email-campaigns-with-random-templates-and-google-sheets-tracking.json)** - Send personalized cold emails with template rotation
+- **[Email Campaign Automation](./workflows/10278-automated-cold-email-campaigns-with-random-templates-and-google-sheets-tracking.json)** - Send personalized cold emails with template rotation
+  +++++++ REPLACE
 - **[Lead Generation Pipeline](./workflows/10045-ai-candidate-screening-pipeline-linkedin-to-telegram-with-gemini-and-apify.json)** - LinkedIn lead screening with AI analysis
 - **[Customer Support Triage](./workflows/10083-automate-customer-support-triage-with-gpt-gmail-slack-and-analytics-dashboard.json)** - Intelligent customer support routing
 - **[Sales Follow-up System](./workflows/10052-automated-sales-follow-up-system-using-highlevel-gmail-slack-and-google-sheets.json)** - Automated sales communication tracking

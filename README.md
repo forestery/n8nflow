@@ -24,64 +24,64 @@ A comprehensive collection of production-ready n8n workflow templates covering e
 
 Our most advanced workflows leveraging cutting-edge AI capabilities:
 
-- **[AI Video Generation](./10050-generate-ai-videos-from-text-or-images-with-sora-2pro-and-gpt-5-enhancement.json)** - Create AI videos using Sora 2.0 Pro with GPT-5 enhancement
-- **[Lead Qualification System](./10025-automate-interior-design-lead-qualification-with-ai-and-human-approval-to-notion.json)** - Intelligent lead classification with human approval loop
-- **[Content Creation Pipeline](./10093-multi-agent-ai-content-creator-for-seo-blogs-and-newsletters-with-openrouter-dall-e-gemini.json)** - Multi-agent system for blog and newsletter creation
-- **[Document RAG System](./10096-document-rag-and-chat-agent-google-drive-to-qdrant-with-mistral-ocr.json)** - Chat with your documents using OCR and vector search
+- **[AI Video Generation](./workflows/10050-generate-ai-videos-from-text-or-images-with-sora-2pro-and-gpt-5-enhancement.json)** - Create AI videos using Sora 2.0 Pro with GPT-5 enhancement
+- **[Lead Qualification System](./workflows/10025-automate-interior-design-lead-qualification-with-ai-and-human-approval-to-notion.json)** - Intelligent lead classification with human approval loop
+- **[Content Creation Pipeline](./workflows/10093-multi-agent-ai-content-creator-for-seo-blogs-and-newsletters-with-openrouter-dall-e-gemini.json)** - Multi-agent system for blog and newsletter creation
+- **[Document RAG System](./workflows/10096-document-rag-and-chat-agent-google-drive-to-qdrant-with-mistral-ocr.json)** - Chat with your documents using OCR and vector search
 
 ### 📈 Marketing & Sales Automation
 
 Comprehensive workflows for marketing campaigns and sales processes:
 
-- **[Email Campaign Automation](./10078-automated-cold-email-campaigns-with-random-templates-and-google-sheets-tracking.json)** - Send personalized cold emails with template rotation
-- **[Lead Generation Pipeline](./10045-ai-candidate-screening-pipeline-linkedin-to-telegram-with-gemini-and-apify.json)** - LinkedIn lead screening with AI analysis
-- **[Customer Support Triage](./10083-automate-customer-support-triage-with-gpt-gmail-slack-and-analytics-dashboard.json)** - Intelligent customer support routing
-- **[Sales Follow-up System](./10052-automated-sales-follow-up-system-using-highlevel-gmail-slack-and-google-sheets.json)** - Automated sales communication tracking
+- **[Email Campaign Automation](./workflows/10078-automated-cold-email-campaigns-with-random-templates-and-google-sheets-tracking.json)** - Send personalized cold emails with template rotation
+- **[Lead Generation Pipeline](./workflows/10045-ai-candidate-screening-pipeline-linkedin-to-telegram-with-gemini-and-apify.json)** - LinkedIn lead screening with AI analysis
+- **[Customer Support Triage](./workflows/10083-automate-customer-support-triage-with-gpt-gmail-slack-and-analytics-dashboard.json)** - Intelligent customer support routing
+- **[Sales Follow-up System](./workflows/10052-automated-sales-follow-up-system-using-highlevel-gmail-slack-and-google-sheets.json)** - Automated sales communication tracking
 
 ### 📝 Content Creation & Publishing
 
 Automate your content production and distribution:
 
-- **[Blog Post Generator](./10046-generate-blog-posts-from-youtube-videos-with-openai-gpt-for-wordpress-and-webflow.json)** - Convert YouTube videos to blog posts
-- **[Podcast Automation](./10051-automate-podcast-creation-with-gpt-claude-and-eleven-labs-text-to-speech.json)** - End-to-end podcast creation pipeline
-- **[Social Media Publishing](./10322-twitter-content-automation-with-gemini-ai-for-tweets-images-and-engagement.json)** - Automated Twitter content creation
-- **[Video Multi-Platform Publishing](./10358-automate-ai-video-creation-and-multi-platform-publishing-with-gpt-4-veo-31-and-blotato.json)** - Distribute videos across multiple platforms
+- **[Blog Post Generator](./workflows/10046-generate-blog-posts-from-youtube-videos-with-openai-gpt-for-wordpress-and-webflow.json)** - Convert YouTube videos to blog posts
+- **[Podcast Automation](./workflows/10051-automate-podcast-creation-with-gpt-claude-and-eleven-labs-text-to-speech.json)** - End-to-end podcast creation pipeline
+- **[Social Media Publishing](./workflows/10322-twitter-content-automation-with-gemini-ai-for-tweets-images-and-engagement.json)** - Automated Twitter content creation
+- **[Video Multi-Platform Publishing](./workflows/10358-automate-ai-video-creation-and-multi-platform-publishing-with-gpt-4-veo-31-and-blotato.json)** - Distribute videos across multiple platforms
 
 ### 💼 Business Operations & HR
 
 Streamline your business processes:
 
-- **[Employee Onboarding](./10034-automated-developer-onboarding-audit-with-clickup-gpt-4o-mini-and-slack-alerts.json)** - Automated new hire onboarding workflow
-- **[Performance Review System](./10005-automate-performance-review-process-with-google-sheets-calendar-email-and-slack.json)** - Streamlined performance management
-- **[Payroll Processing](./10007-automate-payroll-processing-with-gpt-4-google-sheets-pdf-payslips-and-slack-alerts.json)** - Automated payroll generation and notification
-- **[Invoice Management](./10069-automate-invoice-data-extraction-with-ocrspace-gpt-and-google-sheets.json)** - Extract and process invoice data automatically
+- **[Employee Onboarding](./workflows/10034-automated-developer-onboarding-audit-with-clickup-gpt-4o-mini-and-slack-alerts.json)** - Automated new hire onboarding workflow
+- **[Performance Review System](./workflows/10005-automate-performance-review-process-with-google-sheets-calendar-email-and-slack.json)** - Streamlined performance management
+- **[Payroll Processing](./workflows/10007-automate-payroll-processing-with-gpt-4-google-sheets-pdf-payslips-and-slack-alerts.json)** - Automated payroll generation and notification
+- **[Invoice Management](./workflows/10069-automate-invoice-data-extraction-with-ocrspace-gpt-and-google-sheets.json)** - Extract and process invoice data automatically
 
 ### 🔗 Data Management & Integration
 
 Handle data synchronization and processing:
 
-- **[Excel to PostgreSQL](./1-insert-excel-data-to-postgres.json)** - Import Excel data into PostgreSQL database
-- **[Multi-Source Data Sync](./10056-shopify-and-woocommerce-inventory-sync-with-google-sheets-alerts.json)** - Synchronize inventory across platforms
-- **[Data Transformation Pipeline](./10086-how-to-transform-unstructured-email-data-into-structured-format-with-ai-agent.json)** - Convert unstructured data to structured format
-- **[API Integration Testing](./10030-automate-api-faq-quality-testing-with-gpt-4o-mini-google-sheets-and-slack-alerts.json)** - Automated API testing and monitoring
+- **[Excel to PostgreSQL](./workflows/1-insert-excel-data-to-postgres.json)** - Import Excel data into PostgreSQL database
+- **[Multi-Source Data Sync](./workflows/10056-shopify-and-woocommerce-inventory-sync-with-google-sheets-alerts.json)** - Synchronize inventory across platforms
+- **[Data Transformation Pipeline](./workflows/10086-how-to-transform-unstructured-email-data-into-structured-format-with-ai-agent.json)** - Convert unstructured data to structured format
+- **[API Integration Testing](./workflows/10030-automate-api-faq-quality-testing-with-gpt-4o-mini-google-sheets-and-slack-alerts.json)** - Automated API testing and monitoring
 
 ### 📢 Communication & Notifications
 
 Multi-channel communication automation:
 
-- **[Multi-Channel Alerts](./10045-multi-channel-task-reminder-system-with-telegram-email-and-slack.json)** - Send notifications across multiple platforms
-- **[Email Auto-Reply System](./10018-gmail-email-categorization-and-auto-reply-with-gpt-4o-and-google-sheets.json)** - Smart email categorization and responses
-- **[WhatsApp Business Integration](./10040-handle-whatsapp-customer-inquiries-with-ai-and-intent-routing.json)** - AI-powered WhatsApp customer service
-- **[Weather Alert System](./10085-send-severe-weather-alerts-from-visual-crossing-to-telegram.json)** - Automated weather notifications
+- **[Multi-Channel Alerts](./workflows/10045-multi-channel-task-reminder-system-with-telegram-email-and-slack.json)** - Send notifications across multiple platforms
+- **[Email Auto-Reply System](./workflows/10018-gmail-email-categorization-and-auto-reply-with-gpt-4o-and-google-sheets.json)** - Smart email categorization and responses
+- **[WhatsApp Business Integration](./workflows/10040-handle-whatsapp-customer-inquiries-with-ai-and-intent-routing.json)** - AI-powered WhatsApp customer service
+- **[Weather Alert System](./workflows/10085-send-severe-weather-alerts-from-visual-crossing-to-telegram.json)** - Automated weather notifications
 
 ### 🛒 E-commerce Solutions
 
 Specialized workflows for online retail:
 
-- **[Shopify Order Management](./10037-send-rapiwa-whatsapp-apology-and-reorder-link-when-shopify-order-is-cancelled.json)** - Handle canceled orders with automated outreach
-- **[Product Catalog Management](./10063-ai-video-generator-for-ecommerce-product-catalogs-with-veo-31.json)** - Generate product videos using AI
-- **[Customer Review Automation](./10027-client-review-collection-and-sentiment-analysis-with-highlevel-gpt-4o-gmail-and-slack.json)** - Collect and analyze customer reviews
-- **[Inventory Monitoring](./10015-track-amazon-product-prices-with-scrapegraphai-google-sheets-and-telegram-alerts.json)** - Monitor competitor pricing
+- **[Shopify Order Management](./workflows/10037-send-rapiwa-whatsapp-apology-and-reorder-link-when-shopify-order-is-cancelled.json)** - Handle canceled orders with automated outreach
+- **[Product Catalog Management](./workflows/10063-ai-video-generator-for-ecommerce-product-catalogs-with-veo-31.json)** - Generate product videos using AI
+- **[Customer Review Automation](./workflows/10027-client-review-collection-and-sentiment-analysis-with-highlevel-gpt-4o-gmail-and-slack.json)** - Collect and analyze customer reviews
+- **[Inventory Monitoring](./workflows/10015-track-amazon-product-prices-with-scrapegraphai-google-sheets-and-telegram-alerts.json)** - Monitor competitor pricing
 
 ## 🌟 Featured Workflows
 

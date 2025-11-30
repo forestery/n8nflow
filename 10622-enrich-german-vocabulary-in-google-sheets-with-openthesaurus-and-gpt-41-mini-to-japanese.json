@@ -1,0 +1,586 @@
+{
+  "id": "VRoqn646D4AU5hMQ",
+  "meta": {
+    "instanceId": "7aaad48c714db2d503d009516f7b1f7c2a87eb30bffff4a635c76d7ede586a84"
+  },
+  "name": "Enrich German vocabulary in Google Sheets with OpenThesaurus and AI",
+  "tags": [],
+  "nodes": [
+    {
+      "id": "acf67331-7dad-49cc-84e1-8f7e22f55a51",
+      "name": "OpenThesaurus",
+      "type": "n8n-nodes-base.openThesaurus",
+      "position": [
+        -448,
+        272
+      ],
+      "parameters": {
+        "text": "={{ $json.vocabulary }}",
+        "options": {}
+      },
+      "typeVersion": 1,
+      "alwaysOutputData": true
+    },
+    {
+      "id": "2a2bbceb-38ee-4ccd-9cdd-5a419a43c194",
+      "name": "Google Sheets Trigger",
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "position": [
+        -672,
+        272
+      ],
+      "parameters": {
+        "event": "rowAdded",
+        "options": {},
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 1218836304,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA/edit#gid=1218836304",
+          "cachedResultName": "doitu"
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA/edit?usp=drivesdk",
+          "cachedResultName": "n8n_連携シート"
+        }
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "9348b502-e1fd-49e2-a28c-b07bc141e0f1",
+      "name": "AI Agent",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        0,
+        272
+      ],
+      "parameters": {
+        "text": "={{ $('Google Sheets Trigger').item.json.vocabulary }}",
+        "options": {
+          "systemMessage": "=元の単語は「{{ $('OpenThesaurus').item.json.terms[0].term }}」です。\nこの単語の類義語は「{{ $('OpenThesaurus').item.json.terms[1].term }}」です。\n\nこの類義語を使用して、以下の情報を厳密なJSON形式で生成してください。日本語訳や余計な解説はJSONの外に含めないでください。\n\n{\n  \"natural_sentence\": \"ここに自然なドイツ語の例文\",\n  \"part_of_speech\": \"ここに単語の品詞 (Noun, Verb, Adjectiveなど)\",\n  \"translation_ja\": \"ここに例文の日本語訳\",\n  \"level\": \"ここに例文の難易度をヨーロッパ言語共通参照枠(A1, A2, B1, B2, C1, C2)で判定したもの\"\n}"
+        },
+        "promptType": "define"
+      },
+      "typeVersion": 3
+    },
+    {
+      "id": "811ed25f-73a7-4b0d-bd98-eae2e2b87343",
+      "name": "OpenAI Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "position": [
+        80,
+        496
+      ],
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "mode": "list",
+          "value": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "typeVersion": 1.2
+    },
+    {
+      "id": "e07fe1db-d038-43a4-8922-08641c0753d0",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -544,
+        448
+      ],
+      "parameters": {
+        "width": 288,
+        "height": 192,
+        "content": "## OpenThesaurus\nTakes the incoming German word and queries OpenThesaurus for synonyms and related terms so later AI steps can work with real lexical context instead of guessing from a single, isolated word."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "f09a15f6-76c1-4907-ba43-04b007f36c47",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -304,
+        16
+      ],
+      "parameters": {
+        "width": 272,
+        "height": 224,
+        "content": "## If\nChecks whether OpenThesaurus returned at least one valid synonym and sends the execution either to the AI enrichment branch or to the “Not found” path so you never waste AI calls on empty results."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "b840de9c-5b9c-4b0f-b772-292bae750e9c",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "width": 304,
+        "height": 240,
+        "content": "## AI Agent\nBuilds the final prompt and passes the word plus OpenThesaurus data to the OpenAI Chat Model so you receive a well-structured JSON response with an example sentence, translation, level, and part of speech."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "dd7c3eeb-a97c-45cd-9c14-c1b6c47a2ba0",
+      "name": "If",
+      "type": "n8n-nodes-base.if",
+      "position": [
+        -224,
+        272
+      ],
+      "parameters": {
+        "options": {},
+        "conditions": {
+          "options": {
+            "version": 2,
+            "leftValue": "",
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c70a4435-26dc-41b9-bd10-b1b7ea38f6cd",
+              "operator": {
+                "type": "number",
+                "operation": "gt"
+              },
+              "leftValue": "={{ $('OpenThesaurus').item.json.terms.length }}",
+              "rightValue": 0
+            }
+          ]
+        }
+      },
+      "typeVersion": 2.2
+    },
+    {
+      "id": "b6ba48f9-4a27-4fc4-a9a8-a98fbc9e7e95",
+      "name": "Edit Fields",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        352,
+        272
+      ],
+      "parameters": {
+        "options": {},
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d4ffaeeb-a575-4d94-bf2b-41c6017b5f58",
+              "name": "vocabulary",
+              "type": "string",
+              "value": "={{ $('Google Sheets Trigger').item.json.vocabulary }}"
+            },
+            {
+              "id": "a20c646d-0fe7-4f01-b9db-b811457ffaa6",
+              "name": "natural_sentence",
+              "type": "string",
+              "value": "={{ JSON.parse($('AI Agent').item.json.output).natural_sentence }}"
+            },
+            {
+              "id": "2007f7fd-6fee-41e0-9f43-49540dac0fb1",
+              "name": "part_of_speech",
+              "type": "string",
+              "value": "={{ JSON.parse($('AI Agent').item.json.output).part_of_speech }}"
+            },
+            {
+              "id": "8c02db83-78f0-4aa1-92bb-e0c2c6a9bd2b",
+              "name": "translation_ja",
+              "type": "string",
+              "value": "={{ JSON.parse($('AI Agent').item.json.output).translation_ja }}"
+            },
+            {
+              "id": "a1b3f865-3fe9-413b-92a4-d747b516681e",
+              "name": "level",
+              "type": "string",
+              "value": "={{ JSON.parse($('AI Agent').item.json.output).level }}"
+            }
+          ]
+        }
+      },
+      "typeVersion": 3.4
+    },
+    {
+      "id": "14d07fc8-23b1-437c-a8cf-64f3837c9cb4",
+      "name": "Write AI Results to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        576,
+        272
+      ],
+      "parameters": {
+        "columns": {
+          "value": {
+            "level": "={{ $json.level }}",
+            "vocabulary": "={{ $json.vocabulary }}",
+            "part_of_speech": "={{ $json.part_of_speech }}",
+            "translation_ja": "={{ $json.translation_ja }}",
+            "Similar Examples sentence": "={{ $json.natural_sentence }}"
+          },
+          "schema": [
+            {
+              "id": "vocabulary",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "vocabulary",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Similar Examples sentence",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "Similar Examples sentence",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "part_of_speech",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "part_of_speech",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "translation_ja",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "translation_ja",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "level",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "level",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "type": "number",
+              "display": true,
+              "removed": true,
+              "readOnly": true,
+              "required": false,
+              "displayName": "row_number",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "vocabulary"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {},
+        "operation": "update",
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 1218836304,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA/edit#gid=1218836304",
+          "cachedResultName": "doitu"
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA/edit?usp=drivesdk",
+          "cachedResultName": "n8n_連携シート"
+        }
+      },
+      "typeVersion": 4.7
+    },
+    {
+      "id": "bd410dd4-8fe3-4e79-95f5-4fa11285c9dd",
+      "name": "Write 'Not Found' to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        64,
+        656
+      ],
+      "parameters": {
+        "columns": {
+          "value": {
+            "vocabulary": "={{ $('Google Sheets Trigger').item.json.vocabulary }}",
+            "Similar Examples sentence": "類義語が見つかりませんでした。"
+          },
+          "schema": [
+            {
+              "id": "vocabulary",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "vocabulary",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Similar Examples sentence",
+              "type": "string",
+              "display": true,
+              "removed": false,
+              "required": false,
+              "displayName": "Similar Examples sentence",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "part_of_speech",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "part_of_speech",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "translation_ja",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "translation_ja",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "level",
+              "type": "string",
+              "display": true,
+              "removed": true,
+              "required": false,
+              "displayName": "level",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "type": "number",
+              "display": true,
+              "removed": true,
+              "readOnly": true,
+              "required": false,
+              "displayName": "row_number",
+              "defaultMatch": false,
+              "canBeUsedToMatch": true
+            }
+          ],
+          "mappingMode": "defineBelow",
+          "matchingColumns": [
+            "vocabulary"
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {},
+        "operation": "update",
+        "sheetName": {
+          "__rl": true,
+          "mode": "list",
+          "value": 1218836304,
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA/edit#gid=1218836304",
+          "cachedResultName": "doitu"
+        },
+        "documentId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1fZf14pfCSRZV4wQKt0DAvixcDdqLHSonK2BjE8SCNCA/edit?usp=drivesdk",
+          "cachedResultName": "n8n_連携シート"
+        }
+      },
+      "typeVersion": 4.7
+    },
+    {
+      "id": "f22ee0e7-eedc-4a1e-b85b-8319ee949846",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        256,
+        448
+      ],
+      "parameters": {
+        "width": 304,
+        "height": 208,
+        "content": "## Edit Fields\nParses the JSON text returned by the AI model and maps each property into separate fields so the data matches the column structure expected by the Google Sheets update node."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "a0391cf0-1ac4-4bc2-b5fe-1744f5b0e58b",
+      "name": "Sticky Note6",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -48,
+        832
+      ],
+      "parameters": {
+        "width": 320,
+        "height": 192,
+        "content": "## Write 'Not Found' to Sheet\nUpdates the row for any word that has no OpenThesaurus results and writes a short “No synonyms were found” message so you can easily spot entries that need manual review or custom content."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "e05a243e-5703-4845-99e1-e6ee46f84f01",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -768,
+        48
+      ],
+      "parameters": {
+        "width": 304,
+        "height": 192,
+        "content": "## Google Sheets Trigger\nWatches your chosen vocabulary sheet for new or updated rows and sends the word from the `vocabulary` column into the workflow so enrichment starts automatically whenever you add or change an entry."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "6acfe1eb-bda9-452f-9fbd-35cb88fa3690",
+      "name": "Sticky Note7",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        480,
+        32
+      ],
+      "parameters": {
+        "width": 320,
+        "height": 208,
+        "content": "## Write AI Results to Sheet\nFinds the original vocabulary row by matching on the `vocabulary` column and writes the AI-generated example sentence, translation, part of speech, and level back into the sheet so it stays your single source of truth."
+      },
+      "typeVersion": 1
+    },
+    {
+      "id": "154d2d9b-c370-4873-80c0-c4479cbceb22",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1360,
+        48
+      ],
+      "parameters": {
+        "color": 5,
+        "width": 560,
+        "height": 656,
+        "content": "## Template Overview \nThis template enriches a German vocabulary list stored in Google Sheets by combining OpenThesaurus with an AI model. Instead of keeping only isolated words, it automatically generates a natural example sentence, part of speech, Japanese translation, and CEFR level for each entry, turning your sheet into a lightweight vocabulary trainer for learners and teachers.\n\n### How it works\nWhen you add a new row with a German word in the `vocabulary` column, the Google Sheets Trigger starts the workflow and sends the word to OpenThesaurus. If at least one synonym is found, an AI model receives the word plus the related terms and returns a structured JSON object with an example sentence, translation to Japanese, level, and part of speech. The workflow then parses that JSON and writes the results back into the same row in Google Sheets. If no synonyms are found, the workflow writes a clear “not found” message so you can handle that word manually.\n\n### Setup steps\n1. Connect your Google Sheets account and select the spreadsheet and sheet that contain your vocabulary list.\n2. Connect your OpenAI (or compatible) credentials in the AI model node.\n3. Adjust all column mappings in the Google Sheets nodes so they match your sheet (for example: `vocabulary`, example sentence, translation, level).\n4. Add a few test words and run the workflow once to confirm that new rows are enriched correctly.\n\n### Customization tips\nYou can modify the AI prompt to request additional fields such as synonyms, usage notes, or difficulty tags. You can also change the trigger behavior or add filters if you only want to enrich certain rows, ranges, or levels."
+      },
+      "typeVersion": 1
+    }
+  ],
+  "active": false,
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4d2998e4-5aba-4781-98cb-61bda436e2c6",
+  "connections": {
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Write 'Not Found' to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Write AI Results to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenThesaurus": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "OpenThesaurus",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}
